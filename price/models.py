@@ -9,7 +9,7 @@ class Artist(models.Model):
 
 class ArtWork(models.Model):
     title = models.CharField(max_length=100)
-    artist = models.ForeignKey(Artist, on_delete=models.CASCADE)
+    artist = models.ForeignKey(Artist, on_delete=models.CASCADE, related_name="artworks")
     art_image = models.ImageField()
     price = models.IntegerField()
     trade_date = models.DateField()

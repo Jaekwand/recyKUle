@@ -14,7 +14,7 @@
                     <!-- To make this form functional, sign up at-->
                     <!-- https://startbootstrap.com/solution/contact-forms-->
                     <!-- to get an API token!-->
-                    <form class="form-subscribe" id="contactForm" data-sb-form-api-token="API_TOKEN">
+                    <div class="form-subscribe" id="contactForm" data-sb-form-api-token="API_TOKEN">
                         <!-- Email address input-->
                         <div class="row">
                             <div class="col">
@@ -28,7 +28,7 @@
                                 </div>
                             </div>
                             <div class="col-auto">
-                                <button class="btn btn-primary btn-lg disabled" id="searchButton" type="submit" onclick="onSearch()">찾아보기
+                                <button class="btn btn-primary btn-lg" id="searchButton" type="button" onclick="onSearch()">찾아보기
                                 </button>
                             </div>
                         </div>
@@ -48,7 +48,7 @@
                         <!-- This is what your users will see when there is-->
                         <!-- an error submitting the form-->
                         {#                                <div class="d-none" id="submitErrorMessage"><div class="text-center text-danger mb-3">Error sending message!</div></div>#}
-                    </form>
+                    </div>
                 </div>
             </div>
         </div>
