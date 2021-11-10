@@ -1,0 +1,27 @@
+{% extends 'baseprice.html' %}
+{% block content %}
+    {% load static %}
+    {% include "searchbar.html" %}
+
+    <div id="art-area">
+    {% if arts %}
+    {% for content in arts %}
+        <div class="container-fluid d-flex justify-content-center">
+            <div class="card" style="width:70%;">
+              <div class="card-body">
+                <h5 class="card-title">{{ content.title }}</h5>
+                <h6 class="card-subtitle mb-2 text-muted">{{ content.artist }}</h6>
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                <a href="#" class="card-link">Card link</a>
+                <a href="#" class="card-link">Another link</a>
+                  <div>
+                      {{ content.art_image }}
+                  </div>
+              </div>
+            </div>
+        </div>
+    {% endfor %}
+    {% endif %}
+    </div>
+
+{% endblock %}
