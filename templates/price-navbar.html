@@ -1,35 +1,53 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="{% url 'price:main' %}">
-            <img src="/static/colla_logo.png" alt="" width="60" height="24"
-                 class="d-inline-block align-text-top">
-        </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav">
-
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="{% url 'collection:main' %}">컬렉션</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'board:list' %}">게시판</a>
-                </li>
-
-
-                {% if user.is_authenticated %}
-                    <li>
-                    <a class="nav-link" href="{% url 'common:logout' %}">{{ user.username }} (로그아웃)</a>
-                    </li>
-                {% else %}
-                    <li>
-                    <a class="nav-link" href="{% url 'common:login' %}">로그인</a>
-                    </li>
-                {% endif %}
-            </ul>
-        </div>
+{% load static %}
+<nav class="navbar navbar-expand-lg navbar-light mb-5">
+  <div class="container-fluid " >
+      <a class="navbar-brand" href="{% url 'price:main' %}">
+          <img src="/static/colla_logo.png" alt="" width="100%" height="40" class="d-inline-block align-text-top">
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse flex-row-reverse" id="navbarNav">
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="#">컬렉션</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" href="{% url 'board:list' %}">게시판</a>
+            </li>
+            {% if user.is_authenticated %}
+            <li class="nav-item">
+                <span class="nav-link active" onclick="logout()" style="cursor: pointer;">로그아웃</span>
+            </li>
+            {% else %}
+            <li class="nav-item">
+                <a class="nav-link active" href="{% url 'common:login' %}">로그인</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" href="{% url 'common:signup' %}">회원가입</a>
+            </li>
+            {% endif %}
+        </ul>
     </div>
+  </div>
 </nav>
+<script>
+    function logout(){
+        fetch(`{% url 'common:logout' %}`, {
+            method: "POST",
+            headers: {
+                'X-CSRFToken': getCsrfToken(),
+            },
+            redirect: "follow",
+        }).then((response) => {
+            console.log(response.redirected);
+            location.href = response.url;
+        }, (error) => { console.error(error); });
+    }
 
+    function getCsrfToken(){
+    return document.cookie.split(';')
+        .find((item) => item.includes('csrftoken'))
+        .split('=')[1];
+    }
+</script>
