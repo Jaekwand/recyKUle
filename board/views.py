@@ -76,6 +76,9 @@ def post_create(request):
             post = form.save(commit=False)
             post.author = request.user # author 속성에 로그인 계정 저장
             post.create_date = timezone.now()
+            post.category = request.POST["category"]
+            if request.FILES.get("image"):
+                post.head_image = request.FILES.get("image")
             post.save()
             return redirect('board:list')
     else:

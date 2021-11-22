@@ -139,3 +139,7 @@ LOGIN_REDIRECT_URL = '/'
 
 # 로그아웃시 이동하는 URL
 LOGOUT_REDIRECT_URL = '/'
+
+# 사용자가 미디어 입력시 저장되는 경로
+MEDIA_URL = "/media/"
+MEDIA_ROOT = "./_media"

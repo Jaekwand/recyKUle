@@ -1,43 +1,34 @@
 {% extends 'baseprice.html' %}
 {% load board_filter %}
 {% block content %}
-
-<div class="container my-3">
-    <table class="table">
-        <thead>
-        <tr class="text-center thead-dark">
-            <th>번호</th>
-            <th style="width:50%">제목</th>
-            <th>글쓴이</th>
-            <th>작성일시</th>
-        </tr>
-        </thead>
-        <tbody>
-
+    <div class="container-lg">
         {% if board_list %}
-            {% for board in board_list %}
-            <tr class="text-center">
-                <td>
-                    <!-- 번호 = 전체건수 - 시작인덱스 - 현재인덱스 + 1 -->
-                    {{ board_list.paginator.count|sub:board_list.start_index|sub:forloop.counter0|add:1 }}
-                </td>
-                <td class="text-left">
-                    <a href="{% url 'board:detail' board.id %}">{{ board.subject }}</a>
-                    {% if board.boardanswer_set.count > 0 %}
-                    <span class="text-danger small ml-2">{{ board.boardanswer_set.count }}</span>
-                    {% endif %}
-                </td>
-                <td>{{ board.author.username }}</td>  <!-- 글쓴이 추가 -->
-                <td>{{ board.create_date }}</td>
-            </tr>
-            {% endfor %}
-            {% else %}
-            <tr>
-                <td colspan="3">질문이 없습니다.</td>
-            </tr>
+        {% for post in board_list %}
+        <div class="card my-3 mx-auto" style="width: 80%; height: 180px; cursor: pointer; border-top: none; border-right: none; border-left: none;" onclick="location.href='/board/list/{{ post.id }}/'">
+            <div class="row g-0 justify-content-between align-items-center" style="height: 100%">
+            <div class="col-md-auto" >
+              <div class="card-body" style="height: 100%">
+                <p class="card-title mb-3" style="color: #333333; font-size: 20px; font-weight: bold"; >{{ post.subject }}</p>
+                <p class="card-text me-5" style="text-overflow: ellipsis; overflow: hidden; white-space: nowrap; font-size: 14px; color: #666666">{{ post.content }}</p>
+                <p class="card-text" style="font-size: 12px"><small class="text-muted">{{ post.create_date }}</small></p>
+                  <p class="card-text"><small class="text-muted"><span style="color: #BF7E78">{{ post.author }}</span></small></p>
+              </div>
+            </div>
+            {% if post.head_image %}
+            <div class="col-md-3 ">
+                <div class="d-flex justify-content-center">
+                    <img src="{{ post.head_image.url }}" class="img-fluid rounded-start " style="max-height: 120px; width: auto; " alt="...">
+                </div>
+            </div>
             {% endif %}
-        </tbody>
-    </table>
+          </div>
+        </div>
+        {% endfor %}
+        {% else %}
+    </div>
+    <h4>no posts.</h4>
+    {% endif %}
+
 
     <!-- 페이징처리 시작 -->
     <ul class="pagination justify-content-center">

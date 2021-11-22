@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+
 # 게시판에 글을 쓰는 기능
 class BoardPost(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -8,6 +9,11 @@ class BoardPost(models.Model):
     content = models.TextField()
     create_date = models.DateTimeField()
     modify_date = models.DateTimeField(null=True, blank=True)
+    head_image = models.ImageField(
+        upload_to="board/image/%Y/%m/%d/%H",
+        blank=True,
+        null=True)
+    category = models.CharField(max_length=32, null=True)
 
     def __str__(self):
         return self.subject
