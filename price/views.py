@@ -6,9 +6,10 @@ import json
 
 
 def price_main(request):
-    arts = ArtWork.objects.all()
+    artworks = ArtWork.objects.all()
     context = {
-        "arts": arts
+        "artworks": artworks
+
     }
     return render(request, "price/price-main.html", context)
 
@@ -22,24 +23,22 @@ def search_artwork(request):
 
     data = {
         "payload": [
-
         ]
     }
 
     keyword = request_body.get("keyword")
-    result_list = Artist.objects.filter(name__contains=keyword)
+    artist_list = Artist.objects.filter(name__contains=keyword)
 
     # {"payload": [{"artist": "정승연", "recent_selling": 10000000}]}
-    for result in result_list:
-        artworks_count = result.artworks.count()
-        if artworks_count == 0:
-            recent_sells = 0
-        else:
-            recent_sells = result.artworks.order_by("-price")[0].price
+    for artist in artist_list:
+        expensive_artwork = None
+        if artist.artworks.count() > 0:
+            expensive_artwork = artist.artworks.order_by("-price")[0]
 
         data["payload"].append({
-            "artist": result.name,
-            "recent_selling": recent_sells
+            "artist_name": artist.name,
+            "expensive_artwork_title": getattr(expensive_artwork, 'title', 'xxxx'),
+            "expensive_artwork_price": getattr(expensive_artwork, 'price', 0),
         })
 
     return JsonResponse(data, json_dumps_params={"ensure_ascii": False},)

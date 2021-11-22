@@ -3,35 +3,35 @@ from django.contrib.auth.models import User
 
 
 class Artist(models.Model):
-    name = models.CharField(max_length=32)
-    image = models.ImageField(
+    artist_name = models.CharField(max_length=32)
+    artist_image = models.ImageField(
         upload_to="artist/image/%Y/%m/%d/%H", null=True, blank=True)
-    image_url = models.URLField(
+    artist_image_url = models.URLField(
         default='',
         blank=True
     )
 
     def __str__(self):
-        return self.name
+        return self.artist_name
 
 
 class ArtWork(models.Model):
-    title = models.CharField(max_length=100)
-    artist = models.ForeignKey(Artist, on_delete=models.CASCADE, related_name="artworks")
-    art_image = models.ImageField(
+    artwork_title = models.CharField(max_length=100)
+    artist = models.ForeignKey(Artist, on_delete=models.CASCADE, related_name="artist_set")
+    artwork_image = models.ImageField(
         upload_to="artwork/image/%Y/%m/%d/%H",
         null=True,
         blank=True
     )
-    art_image_url = models.URLField(
+    artwork_image_url = models.URLField(
         default='',
         blank=True
     )
-    price = models.IntegerField()
-    trade_date = models.DateField()
-    material = models.CharField(max_length=32)
-    size_width = models.CharField(max_length=32)
-    size_height = models.CharField(max_length=32)
+    artwork_price = models.IntegerField()
+    artwork_trade_date = models.DateField()
+    artwork_material = models.CharField(max_length=32)
+    artwork_size_width = models.CharField(max_length=32)
+    artwork_size_height = models.CharField(max_length=32)
 
     def __str__(self):
-        return self.title
+        return self.artwork_title
