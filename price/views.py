@@ -36,7 +36,7 @@ def search_artwork(request):
             expensive_artwork = artist.artworks.order_by("-price")[0]
 
         data["payload"].append({
-            "artist_name": artist.name,
+            "artist_name": artist.artist_namename,
             "expensive_artwork_title": getattr(expensive_artwork, 'title', 'xxxx'),
             "expensive_artwork_price": getattr(expensive_artwork, 'price', 0),
         })
