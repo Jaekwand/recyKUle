@@ -14,8 +14,12 @@ def price_main(request):
     return render(request, "price/price-main.html", context)
 
 
-def price_artist(request):
-    return render(request, "price/price-artist.html")
+def price_artist(request, artist_id):
+    artist = Artist.objects.get(id=artist_id)
+    context = {
+        "artist": artist
+    }
+    return render(request, "price/price-artist.html", context)
 
 
 def search_artwork(request):

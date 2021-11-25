@@ -6,6 +6,7 @@ app_name = 'price'
 
 urlpatterns = [
     path("", views.price_main, name='main'),
+    path("price/<int:artist_id>/", views.price_artist, name='price_artist'),
     # path("list/", views.board_list, name='list'),
     # path("list/<int:board_id>/", views.board_list_detail, name='detail'),
     # path("answer/create/<int:board_id>/", views.answer_create, name='answer_create'),
