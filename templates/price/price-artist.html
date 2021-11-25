@@ -1,10 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'baseprice.html' %}
+{% block content %}
+    {% load static %}
 
-</body>
-</html>
+
+<p>
+    {{ artist.artist_name }}
+</p>
+<img src="{{ artist.artist_image_url }}" alt="">
+
+{% endblock %}
