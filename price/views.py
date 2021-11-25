@@ -14,8 +14,13 @@ def price_main(request):
     return render(request, "price/price-main.html", context)
 
 
-def price_artist(request):
-    return render(request, "price/price-artist.html")
+def price_artist(request, artist_id):
+    artist = get_object_or_404(Artist, pk=artist_id)
+    context = {
+        "artist": artist
+    }
+    return render(request, "price/price-artist.html", context)
+
 
 
 def search_artwork(request):
@@ -36,7 +41,7 @@ def search_artwork(request):
             expensive_artwork = artist.artworks.order_by("-price")[0]
 
         data["payload"].append({
-            "artist_name": artist.name,
+            "artist_name": artist.artist_namename,
             "expensive_artwork_title": getattr(expensive_artwork, 'title', 'xxxx'),
             "expensive_artwork_price": getattr(expensive_artwork, 'price', 0),
         })
