@@ -263,4 +263,4 @@ modules.xml
 
 # End of https://www.toptal.com/developers/gitignore/api/django,pycharm+all,visualstudiocode
 
-venv_colla
+venv_colla/
