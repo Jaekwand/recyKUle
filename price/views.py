@@ -1,6 +1,9 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import JsonResponse
 from price.models import ArtWork, Artist
+from price.forms import ArtistCommentsForm
+from django.utils import timezone
+
 
 import json
 
@@ -21,6 +24,24 @@ def price_artist(request, artist_id):
     }
     return render(request, "price/price-artist.html", context)
 
+
+def artist_comments(request, artist_id):
+    post = get_object_or_404(Artist, pk=artist_id)
+    if request.method == "POST":
+        print(request.POST.keys())
+        form = ArtistCommentsForm(request.POST)
+        print(form.is_valid())
+        if form.is_valid():
+            answer = form.save(commit=False)
+            answer.author = request.user
+            answer.create_date = timezone.now()
+            answer.post = post
+            answer.save()
+            return redirect('price:artist', artist_id=post.id)
+    else:
+        form = ArtistCommentsForm()
+        context = {'artist_id': artist_id, 'form': form}
+    return render(request, "price/price-artist.html", context)
 
 
 def search_artwork(request):

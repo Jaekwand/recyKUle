@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 
 
+
 class Artist(models.Model):
     artist_name = models.CharField(max_length=32)
     artist_image = models.ImageField(
@@ -11,8 +12,8 @@ class Artist(models.Model):
         blank=True
     )
 
-    def __str__(self):
-        return self.artist_name
+class ArtistCommentsForm:
+    pass
 
 
 class ArtWork(models.Model):
@@ -35,3 +36,10 @@ class ArtWork(models.Model):
 
     def __str__(self):
         return self.artwork_title
+
+class ArtistComments(models.Model):
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    post = models.ForeignKey(Artist, on_delete=models.CASCADE)
+    content = models.TextField()
+    create_date = models.DateTimeField()
+    modify_date = models.DateTimeField(null=True, blank=True)
