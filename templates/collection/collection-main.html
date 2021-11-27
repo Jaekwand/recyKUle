@@ -20,52 +20,33 @@
 
   <div class="album py-5 bg-light">
     <div class="container-lg">
-
-      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-        <div class="col">
+    <div class="row justify-content-start">
+    {% if collection_list %}
+      {% for post in collection_list %}
+          <div class="col-4 mb-2" style="cursor: pointer;" onclick="location.href='/collection/detail/{{ post.id }}/'">
+              {% if post.head_image %}
           <div class="card shadow-sm">
-            <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-
+            <img src="{{ post.head_image.url }}" class="bd-placeholder-img card-img-top" width="100%" height="225" >
+              {% endif %}
             <div class="card-body">
-              <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+              <div class="d-flex align-items-center mb-2" style="height: 75px">
+                  <div class="card-text  text-truncate" style="max-height: 75px; white-space: pre-line ">{{ post.content }}</div>
+              </div>
               <div class="d-flex justify-content-between align-items-center">
-                <div class="btn-group">
-                  <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                  <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+                <div style="color: #BF7E78">
+                  {{ post.author }}
                 </div>
-                <small class="text-muted">9 mins</small>
+                <small class="text-muted">{{ post.create_date }}</small>
               </div>
             </div>
-          </div>
-        </div>
-
-      </div>
-
-        {% if collection_list %}
-        {% for post in collection_list %}
-        <div class="card my-3 mx-auto" style="width: 80%; height: 180px; cursor: pointer; border-top: none; border-right: none; border-left: none;" onclick="location.href='/collection/detail/{{ post.id }}/'">
-            <div class="row g-0 justify-content-between align-items-center" style="height: 100%">
-            <div class="col-md-auto" >
-              <div class="card-body" style="height: 100%">
-                <p class="card-title mb-3" style="color: #333333; font-size: 20px; font-weight: bold"; >{{ post.subject }}</p>
-                <p class="card-text me-5" style="text-overflow: ellipsis; overflow: hidden; white-space: nowrap; font-size: 14px; color: #666666">{{ post.content }}</p>
-                <p class="card-text" style="font-size: 12px"><small class="text-muted">{{ post.create_date }}</small></p>
-                  <p class="card-text"><small class="text-muted"><span style="color: #BF7E78">{{ post.author }}</span></small></p>
-              </div>
-            </div>
-            {% if post.head_image %}
-            <div class="col-md-3 ">
-                <div class="d-flex justify-content-center">
-                    <img src="{{ post.head_image.url }}" class="img-fluid rounded-start " style="max-height: 120px; width: auto; " alt="...">
-                </div>
-            </div>
-            {% endif %}
           </div>
         </div>
         {% endfor %}
-        {% else %}
-        <h4>no posts.</h4>
-        {% endif %}
+        </div>
+      </div>
+    {% else %}
+    <h4>no posts.</h4>
+    {% endif %}
 
 
     <!-- 페이징처리 시작 -->
