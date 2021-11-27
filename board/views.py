@@ -165,4 +165,13 @@ def post_modify(request, board_id):
     context = {'form': form}
     return render(request, 'board/post_form.html', context)
 
+@login_required(login_url = 'common:login')
+def post_delete(request, board_id):
+    """
+    board 삭제
+    """
+    post = get_object_or_404(BoardPost, pk=board_id)
+    post.delete()
+    return redirect('board:list')
+
 
