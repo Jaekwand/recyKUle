@@ -17,6 +17,11 @@
     <div style="margin-top: 12px; margin-bottom: 12px">{{ board_list_detail.author.username }}</div>
     <div class="card my-3 mb-4">
         <div class="card-body">
+            {% if board_list_detail.head_image %}
+                <div class="d-flex justify-content-sm-center">
+                    <img src="{{ board_list_detail.head_image.url }}">
+                </div>
+            {% endif %}
             <div class="d-flex justify-content-end">
                 <div class="card-body p-2 text-left">
                     <div class="card-text" style="white-space: pre-line;">{{ board_list_detail.content }}</div><br>

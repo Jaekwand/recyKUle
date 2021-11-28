@@ -17,6 +17,10 @@
       </div>
     </div>
   </section>
+    <div class="d-flex justify-content-sm-end" style="margin-right: 324px; margin-bottom: 20px;">
+        <a href="{% url 'collection:create' %}" class="btn btn-primary">컬렉션 올리기</a>
+     </div>
+
 
   <div class="album py-5 bg-light">
     <div class="container-lg">
@@ -26,9 +30,9 @@
           <div class="col-4 mb-2" style="cursor: pointer;" onclick="location.href='/collection/detail/{{ post.id }}/'">
               {% if post.head_image %}
           <div class="card shadow-sm">
-            <img src="{{ post.head_image.url }}" class="bd-placeholder-img card-img-top" width="100%" height="225" >
+            <img src="{{ post.head_image.url }}" class="bd-placeholder-img card-img-top shadow-sm" width="100%" height="225" >
               {% endif %}
-            <div class="card-body">
+            <div class="card-body" >
               <div class="d-flex align-items-center mb-2" style="height: 75px">
                   <div class="card-text  text-truncate" style="max-height: 75px; white-space: pre-line ">{{ post.content }}</div>
               </div>
@@ -47,49 +51,6 @@
     {% else %}
     <h4>no posts.</h4>
     {% endif %}
-
-
-    <!-- 페이징처리 시작 -->
-    <ul class="pagination justify-content-center">
-        <!-- 이전페이지 -->
-        {% if collection_list.has_previous %}
-        <li class="page-item">
-            <a class="page-link" href="?page={{ collection_list.previous_page_number }}">이전</a>
-        </li>
-        {% else %}
-        <li class="page-item disabled">
-            <a class="page-link" tabindex="-1" aria-disabled="true" href="#">이전</a>
-        </li>
-        {% endif %}
-        <!-- 페이지리스트 -->
-        {% for page_number in collection_list.paginator.page_range %}
-        {% if page_number >= collection_list.number|add:-5 and page_number <= collection_list.number|add:5 %}
-            {% if page_number == collection_list.number %}
-            <li class="page-item active" aria-current="page">
-                <a class="page-link" href="?page={{ page_number }}">{{ page_number }}</a>
-            </li>
-            {% else %}
-            <li class="page-item">
-                <a class="page-link" href="?page={{ page_number }}">{{ page_number }}</a>
-            </li>
-            {% endif %}
-        {% endif %}
-        {% endfor %}
-        <!-- 다음페이지 -->
-        {% if collection_list.has_next %}
-        <li class="page-item">
-            <a class="page-link" href="?page={{ collection_list.next_page_number }}">다음</a>
-        </li>
-        {% else %}
-        <li class="page-item disabled">
-            <a class="page-link" tabindex="-1" aria-disabled="true" href="#">다음</a>
-        </li>
-        {% endif %}
-    </ul>
-    <!-- 페이징처리 끝 -->
-
-    <a href="{% url 'collection:create' %}" class="btn btn-primary">컬렉션 올리기</a>
-
     </div>
   </div>
 

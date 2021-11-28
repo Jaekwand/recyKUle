@@ -13,10 +13,14 @@
     {% endfor %}
     </div>
     {% endif %}
-    <h2 class="border-bottom py-2">{{ collection_detail.subject }}</h2>
-    <div style="margin-top: 12px; margin-bottom: 12px">{{ collection_detail.author.username }}</div>
+    <h2 style="margin-top: 12px; margin-bottom: 12px">{{ collection_detail.author.username }}</h2>
     <div class="card my-3 mb-4">
         <div class="card-body">
+            {% if collection_detail.head_image %}
+                <div class="d-flex justify-content-sm-center">
+                    <img src="{{ collection_detail.head_image.url }}">
+                </div>
+            {% endif %}
             <div class="d-flex justify-content-end">
                 <div class="card-body p-2 text-left">
                     <div class="card-text" style="white-space: pre-line;">{{ collection_detail.content }}</div><br>

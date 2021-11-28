@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 # 게시판에 글을 쓰는 기능
 class CollectionPost(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE)
-    subject = models.CharField(max_length=200)
+    subject = models.CharField(max_length=200, null=True, blank=True)
     content = models.TextField()
     create_date = models.DateTimeField()
     modify_date = models.DateTimeField(null=True, blank=True)
