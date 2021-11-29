@@ -119,7 +119,7 @@ def answer_create(request, board_id):
             return redirect('board:detail', board_id=post.id)
     else:
         form = BoardAnswerForm()
-    context = {'post':post, 'form': form}
+    context = {'post': post, 'form': form}
     return render(request, 'board/board_list_detail.html)', context)
 
 @login_required(login_url='common:login')
