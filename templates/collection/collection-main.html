@@ -11,15 +11,15 @@
         <p class="lead text-muted">내가 가진 그림을 다른 분들에게 자랑해보세요. <br>
             컬라는 미술품 공유를 통해 건강한 컬렉터 문화를 만들어 나갑니다.</p>
         <p>
-          <a href="#" class="btn btn-primary my-2">둘러보기</a>
+          <a href="{% url 'collection:main' %}" class="btn btn-primary my-2">둘러보기</a>
           <a href="#" class="btn btn-secondary my-2">내 컬렉션</a>
         </p>
       </div>
     </div>
   </section>
-    <div class="d-flex justify-content-sm-end" style="margin-right: 324px; margin-bottom: 20px;">
-        <a href="{% url 'collection:create' %}" class="btn btn-primary">컬렉션 올리기</a>
-     </div>
+  <div class="d-flex justify-content-end" style="margin-bottom: 20px; margin-right: 3rem; position: sticky !important; top: 10px !important; right: 30px; z-index: 1;">
+    <a href="{% url 'collection:create' %}" class="btn btn-primary">컬렉션 올리기</a>
+  </div>
 
 
   <div class="album py-5 bg-light">
@@ -30,7 +30,9 @@
           <div class="col-4 mb-2" style="cursor: pointer;" onclick="location.href='/collection/detail/{{ post.id }}/'">
               {% if post.head_image %}
           <div class="card shadow-sm">
-            <img src="{{ post.head_image.url }}" class="bd-placeholder-img card-img-top shadow-sm" width="100%" height="225" >
+                  <div style="height: 225px; display: inline-block;">
+                    <img src="{{ post.head_image.url }}" class="bd-placeholder-img card-img-top shadow-sm" style="width: 100%; height: 100%; object-fit: cover;" >
+                  </div>
               {% endif %}
             <div class="card-body" >
               <div class="d-flex align-items-center mb-2" style="height: 75px">

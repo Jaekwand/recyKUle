@@ -17,8 +17,8 @@
     <div class="card my-3 mb-4">
         <div class="card-body">
             {% if collection_detail.head_image %}
-                <div class="d-flex justify-content-sm-center">
-                    <img src="{{ collection_detail.head_image.url }}">
+                <div class="d-flex justify-content-sm-center" style="display: inline-block; width: auto; height: auto;">
+                    <img src="{{ collection_detail.head_image.url }}" style="width: fit-content; height: 100%; object-fit: contain;">
                 </div>
             {% endif %}
             <div class="d-flex justify-content-end">
