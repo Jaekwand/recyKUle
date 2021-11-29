@@ -1,7 +1,7 @@
 {% extends 'baseprice.html' %}
 {% block content %}
 
-<div class="container my-3">
+<div class="container my-3" style="width: 65%">
     <!-- 사용자오류 표시 -->
     {% if messages %}
     <div class="alert alert-danger my-3" role="alert">
@@ -13,33 +13,59 @@
     {% endfor %}
     </div>
     {% endif %}
-    <h2 class="border-bottom py-2">{{ board_list_detail.subject }}</h2>
-    <div class="card my-3">
+    <h2 style="margin-top: 12px; margin-bottom: 12px">{{ collection_detail.author.username }}</h2>
+    <div class="card my-3 mb-4">
         <div class="card-body">
-            <div class="card-text" style="white-space: pre-line;">{{ board_list_detail.content }}</div>
+            {% if collection_detail.head_image %}
+                    <div class="d-flex justify-content-sm-center" style="max-width: 100%; display: inline-block;">
+                        <img src="{{ collection_detail.head_image.url }}" style="width: 100%; height: 100%; object-fit: contain;">
+                    </div>
+            {% endif %}
             <div class="d-flex justify-content-end">
-                <div class="badge badge-light p-2 text-left">
-                    <div class="mb-2">{{ board_list_detail.author.username }}</div>
-                    <div>{{ board_list_detail.create_date }}</div>
+                <div class="card-body p-2 text-left">
+                    <div class="card-text" style="white-space: pre-line;">{{ collection_detail.content }}</div><br>
+                    <div>{{ collection_detail.create_date }}</div>
                 </div>
             </div>
-            {% if request.user == board_list_detail.author %}
-            <div class="my-3">
-                <a href="{% url 'board:post_modify' board_list_detail.id %}" class = "btn btn-sm btn-outline-secondary">수정</a>
-            </div>
+            {% if request.user == collection_detail.author %}
+            <span class="my-3">
+                <a href="{% url 'board:post_modify' collection_detail.id %}" class = "btn btn-sm btn-outline-secondary">수정</a>
+            </span>
+            <span class="my-3">
+                <a href="{% url 'board:post_delete' collection_detail.id %}" class = "btn btn-sm btn-outline-secondary">삭제</a>
+            </span>
             {% endif %}
         </div>
     </div>
-    <h5 class="border-bottom my-3 py-2">{{ board_list_detail.boardanswer_set.count }}개의 답변이 있습니다.</h5>
-    {% for answer in board_list_detail.boardanswer_set.all %}
-    <div class="card my-3">
-        <div class="card-body">
-            <div class="card-text" style="white-space: pre-line;">{{ answer.content }}</div>
-            <div class="d-flex justify-content-end">
-                <div class="badge badge-light p-2 text-left">
-                    <div class="mb-2">{{ answer.author.username }}</div>
-                    <div>{{ answer.create_date }}</div>
-                </div>
-            </div>
+    <h6 class="border-bottom my-3 py-2">댓글 {{ collection_detail.boardanswer_set.count }}</h6>
+    {% for answer in collection_detail.boardanswer_set.all %}
+    <div class="card my-3" style="border: none">
+        <div class="card-body" style="margin-left: 12px;">
+            <div class="mb-3">{{ answer.author.username }}</div>
+            <div class="card-text mb-3" style="white-space: pre-line;">{{ answer.content }}</div>
+            <div style="font-size: 12px; color: #545b62">{{ answer.create_date }}</div>
         </div>
     </div>
+    {% endfor %}
+    <form action="{% url 'collection:answer_create' collection_detail.id %}" method="post" class="my-3">
+        {% csrf_token %}
+        {% if form.errors %}
+        <div class="alert alert-danger" role="alert">
+        {% for field in form %}
+            {% if field in form %}
+            <strong>{{ field.label }}</strong>
+            {{ field.errors }}
+            {% endif %}
+        {% endfor %}
+        </div>
+        {% endif %}
+        <div class="form-group">
+            <textarea {% if not user.is_authenticated %}disabled{% endif %}
+                      name="content" id="content" class="form-control" row="10"></textarea>
+        </div>
+        <input type="submit" value="답변등록" class="btn btn-primary mt-3">
+    </form>
+</div>
+
+{% endblock %}
+

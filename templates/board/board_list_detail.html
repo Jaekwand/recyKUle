@@ -1,7 +1,7 @@
 {% extends 'baseprice.html' %}
 {% block content %}
 
-<div class="container my-3">
+<div class="container my-3" style="width: 65%">
     <!-- 사용자오류 표시 -->
     {% if messages %}
     <div class="alert alert-danger my-3" role="alert">
@@ -14,33 +14,37 @@
     </div>
     {% endif %}
     <h2 class="border-bottom py-2">{{ board_list_detail.subject }}</h2>
-    <div class="card my-3">
+    <div style="margin-top: 12px; margin-bottom: 12px">{{ board_list_detail.author.username }}</div>
+    <div class="card my-3 mb-4">
         <div class="card-body">
-            <div class="card-text" style="white-space: pre-line;">{{ board_list_detail.content }}</div>
+            {% if board_list_detail.head_image %}
+                <div class="d-flex justify-content-sm-center" style="display: inline-block; width: auto; height: auto;">
+                    <img src="{{ board_list_detail.head_image.url }}" style="width: 100%; height: 100%; object-fit: contain;">
+                </div>
+            {% endif %}
             <div class="d-flex justify-content-end">
-                <div class="badge badge-light p-2 text-left">
-                    <div class="mb-2">{{ board_list_detail.author.username }}</div>
+                <div class="card-body p-2 text-left">
+                    <div class="card-text" style="white-space: pre-line;">{{ board_list_detail.content }}</div><br>
                     <div>{{ board_list_detail.create_date }}</div>
                 </div>
             </div>
             {% if request.user == board_list_detail.author %}
-            <div class="my-3">
+            <span class="my-3">
                 <a href="{% url 'board:post_modify' board_list_detail.id %}" class = "btn btn-sm btn-outline-secondary">수정</a>
-            </div>
+            </span>
+            <span class="my-3">
+                <a href="{% url 'board:post_delete' board_list_detail.id %}" class = "btn btn-sm btn-outline-secondary">삭제</a>
+            </span>
             {% endif %}
         </div>
     </div>
-    <h5 class="border-bottom my-3 py-2">{{ board_list_detail.boardanswer_set.count }}개의 답변이 있습니다.</h5>
+    <h6 class="border-bottom my-3 py-2">댓글 {{ board_list_detail.boardanswer_set.count }}</h6>
     {% for answer in board_list_detail.boardanswer_set.all %}
-    <div class="card my-3">
-        <div class="card-body">
-            <div class="card-text" style="white-space: pre-line;">{{ answer.content }}</div>
-            <div class="d-flex justify-content-end">
-                <div class="badge badge-light p-2 text-left">
-                    <div class="mb-2">{{ answer.author.username }}</div>
-                    <div>{{ answer.create_date }}</div>
-                </div>
-            </div>
+    <div class="card my-3" style="border: none">
+        <div class="card-body" style="margin-left: 12px;">
+            <div class="mb-3">{{ answer.author.username }}</div>
+            <div class="card-text mb-3" style="white-space: pre-line;">{{ answer.content }}</div>
+            <div style="font-size: 12px; color: #545b62">{{ answer.create_date }}</div>
         </div>
     </div>
     {% endfor %}
@@ -60,7 +64,7 @@
             <textarea {% if not user.is_authenticated %}disabled{% endif %}
                       name="content" id="content" class="form-control" row="10"></textarea>
         </div>
-        <input type="submit" value="답변등록" class="btn btn-primary">
+        <input type="submit" value="답변등록" class="btn btn-primary mt-3">
     </form>
 </div>
 

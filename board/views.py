@@ -6,8 +6,10 @@ from django.core.paginator import Paginator
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 
+
 def board(request):
     return render(request, "board/board.html")
+
 
 def board_list(request):
     """
@@ -25,6 +27,61 @@ def board_list(request):
 
     context = {'board_list': page_obj}
     return render(request, 'board/board_list.html', context)
+
+
+def board_list_cate1(request):
+    """
+    게시판 목록 출력
+    """
+    # 입력 파라미터
+    page = request.GET.get('page', '1') # 페이지
+
+    # 조회
+    board_list = BoardPost.objects.filter(category__exact="자유롭게").order_by('-create_date')
+
+    # 페이징 처리
+    paginator = Paginator(board_list, 10) # 페이지당 10개씩 보여주기
+    page_obj = paginator.get_page(page)
+
+    context = {'board_list': page_obj}
+    return render(request, 'board/board_cate1.html', context)
+
+
+def board_list_cate2(request):
+    """
+    게시판 목록 출력
+    """
+    # 입력 파라미터
+    page = request.GET.get('page', '1') # 페이지
+
+    # 조회
+    board_list = BoardPost.objects.filter(category__exact="전시소식").order_by('-create_date')
+
+    # 페이징 처리
+    paginator = Paginator(board_list, 10) # 페이지당 10개씩 보여주기
+    page_obj = paginator.get_page(page)
+
+    context = {'board_list': page_obj}
+    return render(request, 'board/board_cate2.html', context)
+
+
+def board_list_cate3(request):
+    """
+    게시판 목록 출력
+    """
+    # 입력 파라미터
+    page = request.GET.get('page', '1') # 페이지
+
+    # 조회
+    board_list = BoardPost.objects.filter(category__exact="궁금해요").order_by('-create_date')
+
+    # 페이징 처리
+    paginator = Paginator(board_list, 10) # 페이지당 10개씩 보여주기
+    page_obj = paginator.get_page(page)
+
+    context = {'board_list': page_obj}
+    return render(request, 'board/board_cate3.html', context)
+
 
 def board_list_detail(request, board_id):
     """
@@ -107,5 +164,14 @@ def post_modify(request, board_id):
         form = BoardPostForm(instance=post)
     context = {'form': form}
     return render(request, 'board/post_form.html', context)
+
+@login_required(login_url = 'common:login')
+def post_delete(request, board_id):
+    """
+    board 삭제
+    """
+    post = get_object_or_404(BoardPost, pk=board_id)
+    post.delete()
+    return redirect('board:list')
 
 
