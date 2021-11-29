@@ -9,11 +9,27 @@ import json
 
 
 def price_main(request):
-    artworks = ArtWork.objects.all()
-    context = {
-        "artworks": artworks
+    artists = Artist.objects.all()
+    artist_data_list = []
 
+    for artist in artists:
+        artist_data = {
+            "artist": artist,
+
+        }
+        artist_artworks = artist.artwork_set.order_by("-artwork_trade_date")
+        if not artist_artworks:
+            continue
+        else:
+            artist_artworks = artist_artworks[0]
+        artist_data["artwork"] = artist_artworks
+        artist_data_list.append(artist_data)
+
+
+    context = {
+        "artist_data_list": artist_data_list
     }
+
     return render(request, "price/price-main.html", context)
 
 
@@ -53,18 +69,16 @@ def search_artwork(request):
     }
 
     keyword = request_body.get("keyword")
-    artist_list = Artist.objects.filter(name__contains=keyword)
+    artist_list = Artist.objects.filter(artist_name__contains=keyword)
 
-    # {"payload": [{"artist": "정승연", "recent_selling": 10000000}]}
     for artist in artist_list:
-        expensive_artwork = None
-        if artist.artworks.count() > 0:
-            expensive_artwork = artist.artworks.order_by("-price")[0]
+        if artist.artwork_set.count() > 0:
+            expensive_artwork = artist.artwork_set.order_by("-artwork_price")[0]
 
-        data["payload"].append({
-            "artist_name": artist.artist_namename,
-            "expensive_artwork_title": getattr(expensive_artwork, 'title', 'xxxx'),
-            "expensive_artwork_price": getattr(expensive_artwork, 'price', 0),
-        })
+            data["payload"].append({
+                "artist_name": artist.artist_name,
+                "expensive_artwork_title": getattr(expensive_artwork, 'artwork_title', 'xxxx'),
+                "expensive_artwork_price": getattr(expensive_artwork, 'artwork_price', 0),
+            })
 
     return JsonResponse(data, json_dumps_params={"ensure_ascii": False},)

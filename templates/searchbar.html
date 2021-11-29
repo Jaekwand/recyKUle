@@ -54,3 +54,13 @@
         </div>
     </div>
 </div>
+<script>
+    let searchInput = document.getElementById("searchField");
+
+    searchInput.addEventListener("keyup", function (event) {
+        if (event.keyCode == 13) {
+            event.preventDefault();
+            onSearch();
+        }
+    })
+</script>

@@ -4,8 +4,8 @@
     {% include "searchbar.html" %}
 
     <div id="art-area">
-        {% if artworks %}
-            {% for content in artworks %}
+        {% if artist_data_list %}
+            {% for content in artist_data_list %}
                 <div class="container-fluid d-flex justify-content-center mt-4">
                     <div class="card" style="width:70%;">
                         <div class="card-body">
@@ -19,8 +19,9 @@
                                 </div>
                                 <div class="col-md-7">
                                     <h5 class="card-title">{{ content.artist.artist_name }}</h5>
-                                    <h6 class="card-subtitle mb-2 text-muted">{{ content.artwork_title }}</h6>
-                                <p class="card-text">{{ content.artwork_price }}</p>
+                                    <h6 class="card-subtitle mb-2 text-muted">최근 거래일 : {{ content.artwork.artwork_trade_date }}</h6>
+                                    <h6 class="card-subtitle mb-2 text-muted">작품명 : {{ content.artwork.artwork_title }}</h6>
+                                    <p class="card-text">작품가 : {{ content.artwork.artwork_price }}</p>
                                 </div>
                                 <div class="col-md-2 d-flex justify-content-center">
                                     <button type="button" class="btn btn-secondary ms-3" onclick="location.href='/artist/{{ content.artist.id }}'">호당 가격 확인하기</button>
