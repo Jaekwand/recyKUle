@@ -17,7 +17,6 @@ def price_main(request):
     for artist in artists:
         artist_data = {
             "artist": artist,
-
         }
         artist_artworks = artist.artwork_set.order_by("-artwork_trade_date")
         if not artist_artworks:
@@ -79,16 +78,18 @@ def search_artwork(request):
     }
 
     keyword = request_body.get("keyword")
-    artist_list = Artist.objects.filter(artist_name__contains=keyword)
+    artists = Artist.objects.filter(artist_name__contains=keyword)
 
-    for artist in artist_list:
+    for artist in artists:
         if artist.artwork_set.count() > 0:
-            expensive_artwork = artist.artwork_set.order_by("-artwork_price")[0]
+            recent_artwork = artist.artwork_set.order_by("-artwork_trade_date")[0]
 
             data["payload"].append({
                 "artist_name": artist.artist_name,
-                "expensive_artwork_title": getattr(expensive_artwork, 'artwork_title', 'xxxx'),
-                "expensive_artwork_price": getattr(expensive_artwork, 'artwork_price', 0),
+                "artist_image_url": artist.artist_image_url,
+                "recent_artwork_date": getattr(recent_artwork, 'artwork_trade_date', 'xxxx'),
+                "recent_artwork_title": getattr(recent_artwork, 'artwork_title', 'xxxx'),
+                "recent_artwork_price": getattr(recent_artwork, 'artwork_price', 0),
             })
 
     return JsonResponse(data, json_dumps_params={"ensure_ascii": False},)
