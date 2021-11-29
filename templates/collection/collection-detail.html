@@ -1,10 +1,45 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'baseprice.html' %}
+{% block content %}
 
-</body>
-</html>
+<div class="container my-3">
+    <!-- 사용자오류 표시 -->
+    {% if messages %}
+    <div class="alert alert-danger my-3" role="alert">
+    {% for message in messages %}
+        <strong>{{ message.tags }}</strong>
+        <ul>
+            <li>{{ message.message }}</li>
+        </ul>
+    {% endfor %}
+    </div>
+    {% endif %}
+    <h2 class="border-bottom py-2">{{ board_list_detail.subject }}</h2>
+    <div class="card my-3">
+        <div class="card-body">
+            <div class="card-text" style="white-space: pre-line;">{{ board_list_detail.content }}</div>
+            <div class="d-flex justify-content-end">
+                <div class="badge badge-light p-2 text-left">
+                    <div class="mb-2">{{ board_list_detail.author.username }}</div>
+                    <div>{{ board_list_detail.create_date }}</div>
+                </div>
+            </div>
+            {% if request.user == board_list_detail.author %}
+            <div class="my-3">
+                <a href="{% url 'board:post_modify' board_list_detail.id %}" class = "btn btn-sm btn-outline-secondary">수정</a>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+    <h5 class="border-bottom my-3 py-2">{{ board_list_detail.boardanswer_set.count }}개의 답변이 있습니다.</h5>
+    {% for answer in board_list_detail.boardanswer_set.all %}
+    <div class="card my-3">
+        <div class="card-body">
+            <div class="card-text" style="white-space: pre-line;">{{ answer.content }}</div>
+            <div class="d-flex justify-content-end">
+                <div class="badge badge-light p-2 text-left">
+                    <div class="mb-2">{{ answer.author.username }}</div>
+                    <div>{{ answer.create_date }}</div>
+                </div>
+            </div>
+        </div>
+    </div>
