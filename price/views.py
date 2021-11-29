@@ -49,7 +49,6 @@ def price_artist(request, artist_id):
         "artist": artist,
         # "recent_price": recent_trades,
         "recent_trades": artworks,
-
     }
     return render(request, "price/price-artist.html", context)
 
