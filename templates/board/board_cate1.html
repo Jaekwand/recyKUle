@@ -1,15 +1,18 @@
 {% extends 'baseprice.html' %}
 {% load board_filter %}
 {% block content %}
-    <nav class="navbar navbar-expand-sm navbar-light mb-2">
+    <nav class="navbar navbar-expand-lg navbar-light mb-2">
       <div class="container-fluid " >
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
           <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="{% url 'board:list' %}">전체보기</a>
+                    <a class="nav-link" href="{% url 'board:list' %}">전체보기</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link " href="{% url 'board:cate1' %}">자유롭게</a>
+                    <a class="nav-link active" aria-current="page" href="{% url 'board:cate1' %}">자유롭게</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link " href="{% url 'board:cate2' %}">전시소식</a>
@@ -22,16 +25,16 @@
       </div>
     </nav>
     <div class="d-flex justify-content-end" style="margin-bottom: 20px; margin-right: 3rem; position: sticky !important; top: 10px !important; right: 30px; z-index: 1;">
-        <a href="{% url 'board:post_create' %}" class="btn btn-secondary">글쓰기</a>
+         <a href="{% url 'board:post_create' %}" class="btn btn-secondary">글쓰기</a>
     </div>
     <div class="container-lg">
         {% if board_list %}
         {% for post in board_list %}
         <div class="card my-3 mx-auto" style="width: 80%; height: 180px; cursor: pointer; border-top: none; border-right: none; border-left: none;" onclick="location.href='/board/list/{{ post.id }}/'">
             <div class="row g-0 justify-content-between align-items-center" style="height: 100%">
-            <div class="col-md-9" >
+            <div class="col-md-auto" >
               <div class="card-body" style="height: 100%">
-                <p class="card-title mb-3" style="color: #333333; font-size: 20px; font-weight: bold; text-overflow: ellipsis; overflow: hidden; white-space: nowrap;">{{ post.subject }}</p>
+                <p class="card-title mb-3" style="color: #333333; font-size: 20px; font-weight: bold"; >{{ post.subject }}</p>
                 <p class="card-text me-5" style="text-overflow: ellipsis; overflow: hidden; white-space: nowrap; font-size: 14px; color: #666666">{{ post.content }}</p>
                 <p class="card-text" style="font-size: 12px"><small class="text-muted">{{ post.create_date }}</small></p>
                   <p class="card-text"><small class="text-muted"><span style="color: #BF7E78">{{ post.author }}</span></small></p>
@@ -39,8 +42,8 @@
             </div>
             {% if post.head_image %}
             <div class="col-md-3 ">
-                <div class="d-flex justify-content-center ">
-                    <img src="{{ post.head_image.url }}" class="img-fluid rounded-start shadow-sm" style="max-height: 120px; width: auto; " alt="...">
+                <div class="d-flex justify-content-center">
+                    <img src="{{ post.head_image.url }}" class="img-fluid rounded-start " style="max-height: 120px; width: auto; " alt="...">
                 </div>
             </div>
             {% endif %}
@@ -48,9 +51,9 @@
         </div>
         {% endfor %}
         {% else %}
-        </div>
-        <h4>no posts.</h4>
-        {% endif %}
+    </div>
+    <h4>no posts.</h4>
+    {% endif %}
 
 
     <!-- 페이징처리 시작 -->
@@ -92,8 +95,6 @@
     </ul>
     <!-- 페이징처리 끝 -->
 
-
-
-
+</div>
 
 {% endblock %}
