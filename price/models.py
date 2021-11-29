@@ -9,20 +9,20 @@ class Artist(models.Model):
         upload_to="artist/image/%Y/%m/%d/%H", null=True, blank=True)
     artist_image_url = models.URLField(
         default='',
-        blank=True
+        blank=True,
     )
 
 class ArtWork(models.Model):
     artwork_title = models.CharField(max_length=100, null=True, blank=True)
-    artist = models.ForeignKey(Artist, on_delete=models.CASCADE, related_name="artist_set")
+    artist = models.ForeignKey(Artist, on_delete=models.CASCADE)
     artwork_image = models.ImageField(
         upload_to="artwork/image/%Y/%m/%d/%H",
         null=True,
-        blank=True
+        blank=True,
     )
     artwork_image_url = models.URLField(
         default='',
-        blank=True
+        blank=True,
     )
     artwork_auction = models.CharField(max_length=32, null=True, blank=True)
     artwork_price = models.IntegerField(null=True, blank=True)
