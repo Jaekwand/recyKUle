@@ -13,5 +13,5 @@ urlpatterns = [
     # path("answer/create/<int:board_id>/", views.answer_create, name='answer_create'),
     # path("post/create/", views.post_create, name='post_create'),
     # path("post/modify/<int:board_id>/", views.post_modify, name='post_modify'),
-    path("test", views.search_artwork)
+    path("test", views.search_artwork),
 ]

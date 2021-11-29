@@ -35,7 +35,6 @@ def price_artist(request, artist_id):
         "recent_trades": artworks,
 
     }
-
     return render(request, "price/price-artist.html", context)
 
 
@@ -54,7 +53,7 @@ def artist_comments(request, artist_id):
             return redirect('price:artist', artist_id=post.id)
     else:
         form = ArtistCommentsForm()
-    context = {'artist_id': artist_id, 'form': form}
+        context = {'artist_id': artist_id, 'form': form}
     return render(request, "price/price-artist.html", context)
 
 
@@ -76,7 +75,7 @@ def search_artwork(request):
             expensive_artwork = artist.artworks.order_by("-price")[0]
 
         data["payload"].append({
-            "artist_name": artist.name,
+            "artist_name": artist.artist_namename,
             "expensive_artwork_title": getattr(expensive_artwork, 'title', 'xxxx'),
             "expensive_artwork_price": getattr(expensive_artwork, 'price', 0),
         })
