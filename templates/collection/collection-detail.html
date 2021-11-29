@@ -29,10 +29,10 @@
             </div>
             {% if request.user == collection_detail.author %}
             <span class="my-3">
-                <a href="{% url 'board:post_modify' collection_detail.id %}" class = "btn btn-sm btn-outline-secondary">수정</a>
+                <a href="{% url 'collection:modify' collection_detail.id %}" class = "btn btn-sm btn-outline-secondary">수정</a>
             </span>
             <span class="my-3">
-                <a href="{% url 'board:post_delete' collection_detail.id %}" class = "btn btn-sm btn-outline-secondary">삭제</a>
+                <a href="{% url 'collection:delete' collection_detail.id %}" class = "btn btn-sm btn-outline-secondary">삭제</a>
             </span>
             {% endif %}
         </div>
