@@ -15,26 +15,27 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='CollectionPost',
+            name='BoardPost',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('subject', models.CharField(blank=True, max_length=200, null=True)),
+                ('subject', models.CharField(max_length=200)),
                 ('content', models.TextField()),
                 ('create_date', models.DateTimeField()),
                 ('modify_date', models.DateTimeField(blank=True, null=True)),
                 ('head_image', models.ImageField(blank=True, null=True, upload_to='board/image/%Y/%m/%d/%H')),
+                ('category', models.CharField(max_length=32, null=True)),
                 ('author', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
             ],
         ),
         migrations.CreateModel(
-            name='CollectionAnswer',
+            name='BoardAnswer',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('content', models.TextField()),
                 ('create_date', models.DateTimeField()),
                 ('modify_date', models.DateTimeField(blank=True, null=True)),
                 ('author', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
-                ('post', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='collection.collectionpost')),
+                ('post', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='board.boardpost')),
             ],
         ),
     ]
