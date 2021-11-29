@@ -3,6 +3,8 @@ from django.http import JsonResponse
 from price.models import ArtWork, Artist
 from price.forms import ArtistCommentsForm
 from django.utils import timezone
+from django.core.paginator import Paginator
+
 
 
 import json
@@ -18,9 +20,20 @@ def price_main(request):
 
 
 def price_artist(request, artist_id):
+    artwork = get_object_or_404(ArtWork, pk=artist_id)
     artist = get_object_or_404(Artist, pk=artist_id)
+    page = int(request.GET.get('p', 1)) #없으면 1로 지정
+
+    #최근 거래 내역
+    recent_trades = ArtWork.objects.order_by('-artwork_trade_date')
+    paginator = Paginator(recent_trades, 3) #한 페이지 당 몇개 씩 보여줄 지 지정
+    artworks = paginator.get_page(page)
     context = {
-        "artist": artist
+        "post": artwork,
+        "artist": artist,
+        # "recent_price": recent_trades,
+        "recent_trades": artworks,
+
     }
 
     return render(request, "price/price-artist.html", context)
