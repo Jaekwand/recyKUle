@@ -24,6 +24,9 @@
         </div>
       </div>
     </nav>
+    <div class="d-flex justify-content-end" style="margin-bottom: 20px; margin-right: 3rem; position: sticky !important; top: 10px !important; right: 30px; z-index: 1;">
+        <a href="{% url 'board:post_create' %}" class="btn btn-secondary">글쓰기</a>
+    </div>
     <div class="container-lg">
         {% if board_list %}
         {% for post in board_list %}
@@ -92,7 +95,6 @@
     </ul>
     <!-- 페이징처리 끝 -->
 
-    <a href="{% url 'board:post_create' %}" class="btn btn-primary">글쓰기</a>
 </div>
 
 {% endblock %}
