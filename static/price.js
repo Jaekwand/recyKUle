@@ -53,7 +53,7 @@ async function onSearch() {
                                 <p class="card-text">작품가 : ${item.recent_artwork_price}</p>
                             </div>
                             <div class="col-md-2 d-flex justify-content-center">
-                                <button type="button" class="bt btn-secondary ms-3" onclick="location.href='/artist/${item.artist_id}'">호당 가격 확인하기</button>
+                                <button type="button" class="bt btn-secondary ms-3" onclick="location.href='/artist/${item.artist_id}/'">호당 가격 확인하기</button>
                             </div>
                         </div>
                     </div>
