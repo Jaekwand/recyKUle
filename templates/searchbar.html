@@ -18,6 +18,7 @@
                         <!-- Email address input-->
                         <div class="row">
                             <div class="col">
+                                {% csrf_token %}
                                 <input class="form-control form-control-lg" id="searchField" type="text"
                                        placeholder="궁금한 작가 이름을 검색해보세요" data-sb-validations="required,text"/>
                                 <div class="invalid-feedback text-white" data-sb-feedback="search:required">내용이 입력되지

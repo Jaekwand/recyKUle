@@ -11,6 +11,28 @@ async function onSearch() {
     });
     let responseBody = await response.json();
     let newContent = ``;
+
+    //     for (const item of responseBody['payload']) {
+    //     newContent += `
+    //         <div class="container-fluid d-flex justify-content-center">
+    //             <div class="card" style="width:70%;">
+    //               <div class="card-body">
+    //                 <h5 class="card-title">${item.artist_name}</h5>
+    //                 <h6 class="card-subtitle mb-2 text-muted">
+    //                     ${item.expensive_artwork_title}
+    //                 </h6>
+    //                 <p class="card-text">
+    //                    ${item.expensive_artwork_price}
+    //                 </p>
+    //
+    //                   <div>
+    //
+    //                   </div>
+    //               </div>
+    //             </div>
+    //         </div>`
+    // }
+
     for (const item of responseBody['payload']) {
         newContent += `
             <div class="container-fluid d-flex justify-content-center mt-4">
@@ -19,7 +41,7 @@ async function onSearch() {
                         <div class="row g-0 justify-content-between align-items-center" style="height: 100%">
                             <div class="col-md-3 d-flex justify-content-center">
                               <div style="height: 120px; width: 120px; display: inline-block;">
-                                <img src="${item.artist_image_url}" 
+                                <img src="${item.artist_image_url}"
                                      class="img-fluid  rounded-circle overflow-hidden"
                                      style="width: 100%; height: 100%; object-fit: cover;">
                               </div>
@@ -31,8 +53,8 @@ async function onSearch() {
                                 <p class="card-text">작품가 : ${item.recent_artwork_price}</p>
                             </div>
                             <div class="col-md-2 d-flex justify-content-center">
-                                <button type="button" class="bt btn-secondary ms-3" onclick="location.href='/artist/${item.artist.id}'">호당 가격 확인하기</button>
-                            </div>                            
+                                <button type="button" class="bt btn-secondary ms-3" onclick="location.href='/artist/${item.artist_id}'">호당 가격 확인하기</button>
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -6,8 +6,8 @@ from django.utils import timezone
 from django.core.paginator import Paginator
 
 
-
 import json
+
 
 
 def price_main(request):
@@ -78,18 +78,32 @@ def search_artwork(request):
     }
 
     keyword = request_body.get("keyword")
-    artists = Artist.objects.filter(artist_name__contains=keyword)
+    artist_list = Artist.objects.filter(artist_name__contains=keyword)
 
-    for artist in artists:
+    # for artist in artist_list:
+    #     if artist.artwork_set.count() > 0:
+    #         expensive_artwork = artist.artwork_set.order_by("-artwork_price")[0]
+    #
+    #         data["payload"].append({
+    #             "artist_name": artist.artist_name,
+    #             "expensive_artwork_title": getattr(expensive_artwork, 'artwork_title', 'xxxx'),
+    #             "expensive_artwork_price": getattr(expensive_artwork, 'artwork_price', 0),
+    #         })
+
+
+    for artist in artist_list:
         if artist.artwork_set.count() > 0:
             recent_artwork = artist.artwork_set.order_by("-artwork_trade_date")[0]
 
             data["payload"].append({
+                "artist_id": artist.id,
                 "artist_name": artist.artist_name,
                 "artist_image_url": artist.artist_image_url,
-                "recent_artwork_date": getattr(recent_artwork, 'artwork_trade_date', 'xxxx'),
-                "recent_artwork_title": getattr(recent_artwork, 'artwork_title', 'xxxx'),
-                "recent_artwork_price": getattr(recent_artwork, 'artwork_price', 0),
+                "recent_artwork_date": recent_artwork.artwork_trade_date,
+                "recent_artwork_title": recent_artwork.artwork_title,
+                "recent_artwork_price": recent_artwork.artwork_price,
             })
+
+
 
     return JsonResponse(data, json_dumps_params={"ensure_ascii": False},)
