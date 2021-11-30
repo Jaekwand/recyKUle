@@ -101,7 +101,7 @@ def search_artwork(request):
                 "artist_image_url": artist.artist_image_url,
                 "recent_artwork_date": recent_artwork.artwork_trade_date,
                 "recent_artwork_title": recent_artwork.artwork_title,
-                "recent_artwork_price": recent_artwork.artwork_price,
+                "recent_artwork_price": "{:,}".format(recent_artwork.artwork_price),
             })
 
 
