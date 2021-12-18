@@ -9,13 +9,10 @@
                     <a class="nav-link active" aria-current="page" href="{% url 'board:list' %}">전체보기</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link " href="{% url 'board:cate1' %}">자유롭게</a>
+                    <a class="nav-link " href="{% url 'board:cate1' %}">자유게시판</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link " href="{% url 'board:cate2' %}">전시소식</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link " href="{% url 'board:cate3' %}">궁금해요</a>
+                    <a class="nav-link " href="{% url 'board:cate2' %}">건의사항</a>
                 </li>
             </ul>
         </div>
@@ -29,7 +26,7 @@
         {% for post in board_list %}
         <div class="card my-3 mx-auto" style="width: 80%; height: 180px; cursor: pointer; border-top: none; border-right: none; border-left: none;" onclick="location.href='/board/list/{{ post.id }}/'">
             <div class="row g-0 justify-content-between align-items-center" style="height: 100%">
-            <div class="col-md-9" >
+            <div class="col-sm-9" >
               <div class="card-body" style="height: 100%">
                 <p class="card-title mb-3" style="color: #333333; font-size: 20px; font-weight: bold; text-overflow: ellipsis; overflow: hidden; white-space: nowrap;">{{ post.subject }}</p>
                 <p class="card-text me-5" style="text-overflow: ellipsis; overflow: hidden; white-space: nowrap; font-size: 14px; color: #666666">{{ post.content }}</p>
@@ -38,7 +35,7 @@
               </div>
             </div>
             {% if post.head_image %}
-            <div class="col-md-3 ">
+            <div class="col-sm-3 ">
                 <div class="d-flex justify-content-center ">
                     <img src="{{ post.head_image.url }}" class="img-fluid rounded-start shadow-sm" style="max-height: 120px; width: auto; " alt="...">
                 </div>

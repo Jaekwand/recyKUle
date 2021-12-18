@@ -1,16 +1,13 @@
 {% load static %}
 <nav class="navbar navbar-expand-lg navbar-light mb-2">
   <div class="container-fluid " >
-      <a class="navbar-brand" href="{% url 'price:main' %}">
-          <img src="/static/colla_logo.png" alt="" width="100%" height="40" class="d-inline-block align-text-top">
+      <a class="navbar-brand" href="{% url 'price:main' %}" style="width: 15vw">
+          <img src="/static/recyKUle-logo.jpg" alt="" width="100%" height="100%" class="d-inline-block align-text-top">
       </a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse flex-row-reverse" id="navbarNav">
+      <div class="navbar navbar-expand-sm flex-row-reverse" id="navbarNav">
         <ul class="navbar-nav">
             <li class="nav-item">
-                <a class="nav-link active" href="{% url 'collection:main' %}">컬렉션</a>
+                <a class="nav-link active" href="{% url 'price:main' %}">설치 현황</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link active" href="{% url 'board:list' %}">게시판</a>

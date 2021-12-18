@@ -107,3 +107,18 @@ def search_artwork(request):
 
 
     return JsonResponse(data, json_dumps_params={"ensure_ascii": False},)
+
+positions = [
+    {
+        "lng": 127.077821364185,
+        "lat": 37.54216912927185,
+    },
+]
+
+
+def get_points(request):
+    data = {
+        "points": positions
+    }
+    return JsonResponse(data)
+

@@ -37,7 +37,7 @@ def board_list_cate1(request):
     page = request.GET.get('page', '1') # 페이지
 
     # 조회
-    board_list = BoardPost.objects.filter(category__exact="자유롭게").order_by('-create_date')
+    board_list = BoardPost.objects.filter(category__exact="자유게시판").order_by('-create_date')
 
     # 페이징 처리
     paginator = Paginator(board_list, 10) # 페이지당 10개씩 보여주기
@@ -55,7 +55,7 @@ def board_list_cate2(request):
     page = request.GET.get('page', '1') # 페이지
 
     # 조회
-    board_list = BoardPost.objects.filter(category__exact="전시소식").order_by('-create_date')
+    board_list = BoardPost.objects.filter(category__exact="건의사항").order_by('-create_date')
 
     # 페이징 처리
     paginator = Paginator(board_list, 10) # 페이지당 10개씩 보여주기
@@ -65,7 +65,7 @@ def board_list_cate2(request):
     return render(request, 'board/board_cate2.html', context)
 
 
-def board_list_cate3(request):
+def board_list_in_main(request):
     """
     게시판 목록 출력
     """
@@ -73,14 +73,14 @@ def board_list_cate3(request):
     page = request.GET.get('page', '1') # 페이지
 
     # 조회
-    board_list = BoardPost.objects.filter(category__exact="궁금해요").order_by('-create_date')
+    board_list = BoardPost.objects.order_by('-create_date')
 
     # 페이징 처리
-    paginator = Paginator(board_list, 10) # 페이지당 10개씩 보여주기
+    paginator = Paginator(board_list, 3) # 페이지당 10개씩 보여주기
     page_obj = paginator.get_page(page)
 
     context = {'board_list': page_obj}
-    return render(request, 'board/board_cate3.html', context)
+    return render(request, 'price/price-main.html', context)
 
 
 def board_list_detail(request, board_id):
@@ -158,6 +158,8 @@ def post_modify(request, board_id):
         if form.is_valid():
             post = form.save(commit=False)
             post.modify_date = timezone.now()
+            if request.FILES.get("image"):
+                post.head_image = request.FILES.get("image")
             post.save()
             return redirect('board:detail', board_id=post.id)
     else:
